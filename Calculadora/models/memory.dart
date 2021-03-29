@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class Memory {
   static const operations = const ['%', '/', 'X', '-', '+', '='];
 
@@ -8,27 +6,26 @@ class Memory {
   String operation;
   String _value = '0';
   bool _wipeValue = false;
-  
 
-  void applyCommand(String command){
-    if(command == 'AC'){
+  void applyCommand(String command) {
+    if (command == 'AC') {
       _allClear();
-    }else if(operations.contains(command)){
+    } else if (operations.contains(command)) {
       _setOperation(command);
-    }else{
+    } else {
       _addDigit(command);
     }
   }
 
-  _setOperation(String newOperation){
-      _wipeValue = true;
+  _setOperation(String newOperation) {
+    _wipeValue = true;
   }
 
-  _addDigit(String digit){
-    final isDot = digit == ',';
+  _addDigit(String digit) {
+    final isDot = digit == '.';
     final wipeValue = (_value == '0' && !isDot) || _wipeValue;
 
-    if(isDot && _value.contains(',') && !wipeValue){
+    if (isDot && _value.contains('.') && !wipeValue) {
       return;
     }
 
@@ -37,15 +34,14 @@ class Memory {
     _value = currentValue + digit;
     _wipeValue = false;
 
-    _buffer[_bufferIndex] =  double.parse(_value) ?? 0;
-    print(NumberFormat.currency(locale: 'pt-BR').format(_buffer[_bufferIndex]));
+    _buffer[_bufferIndex] = double.parse(_value) ?? 0;
   }
 
-  _allClear(){
+  _allClear() {
     _value = '0';
   }
 
-  String get value{
+  String get value {
     return _value;
   }
 }
